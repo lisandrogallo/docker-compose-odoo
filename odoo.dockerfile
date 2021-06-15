@@ -35,4 +35,16 @@ RUN pip3 install \
     py3o.formats \
     inotify
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get remove -y \
+    git \
+    ssh \
+    python3-pip; \
+    apt-get autoremove -y; \
+    apt-get clean; \
+    find /var/lib/apt/lists -type f | xargs rm; \
+    find /var/log -type f -exec rm {} \;; \
+    rm -rf /usr/share/man/*; \
+    rm -rf /usr/share/doc/*; \
+    rm -f /var/log/alternatives.log /var/log/apt/*
+
 USER odoo
