@@ -1,4 +1,4 @@
-FROM odoo:13
+FROM odoo:14
 
 USER root
 
@@ -20,14 +20,14 @@ RUN apt-get update; \
 
 RUN mkdir -p /mnt/addons/oca/ && \
     cd /mnt/addons/oca/ && \
-    git clone --single-branch --branch 13.0 --depth 1 https://github.com/oca/web.git && \
-    git clone --single-branch --branch 13.0 --depth 1 https://github.com/oca/server-tools.git && \
-    git clone --single-branch --branch 13.0 --depth 1 https://github.com/oca/reporting-engine.git && \
-    git clone --single-branch --branch 13.0 --depth 1 https://github.com/oca/server-brand.git && \
-    git clone --single-branch --branch 13.0 --depth 1 https://github.com/oca/server-ux.git && \
-    git clone --single-branch --branch 13.0 --depth 1 https://github.com/oca/partner-contact.git && \
-    git clone --single-branch --branch 13.0 --depth 1 https://github.com/oca/sale-workflow.git && \
-    git clone --single-branch --branch 13.0 --depth 1 https://github.com/oca/project.git
+    git clone --single-branch --branch 14.0 --depth 1 https://github.com/oca/web.git && \
+    git clone --single-branch --branch 14.0 --depth 1 https://github.com/oca/server-tools.git && \
+    git clone --single-branch --branch 14.0 --depth 1 https://github.com/oca/reporting-engine.git && \
+    git clone --single-branch --branch 14.0 --depth 1 https://github.com/oca/server-brand.git && \
+    git clone --single-branch --branch 14.0 --depth 1 https://github.com/oca/server-ux.git && \
+    git clone --single-branch --branch 14.0 --depth 1 https://github.com/oca/partner-contact.git && \
+    git clone --single-branch --branch 14.0 --depth 1 https://github.com/oca/sale-workflow.git && \
+    git clone --single-branch --branch 14.0 --depth 1 https://github.com/oca/project.git
 
 RUN pip3 install \
     wheel && \
