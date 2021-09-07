@@ -1,6 +1,26 @@
-# Usage
+# Odoo Docker Compose stack
+
+## Create `.env` file with environment variables
+
+```text
+ODOO_USER=odoo
+ODOO_PASS=odoo
+TRAEFIK_DEFAULT_DOMAIN=example.com
+PG_SHARED_BUFFERS=768MB
+PG_MAINTENANCE_WORK_MEM=400MB
+PG_WAL_BUFFERS=8MB
+PG_EFFECTIVE_CACHE_SIZE=4GB
+PG_WORK_MEM=32MB
+PG_MAX_CONNECTIONS=200
+PG_DEFAULT_TEXT_SEARCH_CONFIG=pg_catalog.spanish
+TZ=America/Argentina/Buenos_Aires
+PGTZ=GMT-3
+WORKERS=4
+```
+
+## Run Docker Compose stack
 
 ```bash
-docker-compose build --no-cache
-docker-compose up -d
+sudo docker-compose build --no-cache
+sudo docker-compose up -d
 ```
