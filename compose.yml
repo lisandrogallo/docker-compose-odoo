@@ -31,7 +31,7 @@ services:
       - traefik.http.services.odoo.loadbalancer.server.port=8069
       - traefik.http.routers.odoo.entrypoints=websecure
       - traefik.http.routers.odoo.tls=true
-      - traefik.chat.frontend.rule=Host(`${HOST}`;PathPrefix:/longpolling)
+      - traefik.http.routers.chat.rule=Host(`${HOST}`) && (PathPrefix(`/longpolling`))
       - traefik.http.routers.chat.service=chat
       - traefik.http.services.chat.loadbalancer.server.port=8072
       - traefik.http.routers.chat.entrypoints=websecure
@@ -95,7 +95,8 @@ services:
       ADMINER_PLUGINS: "tables-filter tinymce"
     labels:
       - traefik.enable=true
-      - traefik.chat.frontend.rule=Host:${HOST};PathPrefix:/adminer
+      - traefik.http.routers.adminer.service=adminer
+      - traefik.http.routers.adminer.rule=Host(`${HOST}`) && (PathPrefix(`/adminer`))
       - traefik.http.routers.adminer.entrypoints=websecure
       - traefik.http.routers.adminer.tls=true
       - traefik.http.services.adminer.loadbalancer.server.port=8080
