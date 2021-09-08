@@ -1,6 +1,8 @@
-# Odoo Docker Compose stack
+# Odoo Docker Compose Stack
 
-## Create `.env` file with environment variables
+## Usage
+
+### Create `.env` file with environment variables
 
 ```text
 ODOO_USER=odoo
@@ -18,9 +20,18 @@ PGTZ=GMT-3
 WORKERS=4
 ```
 
-## Run Docker Compose stack
+### Run Docker Compose stack
+
+#### Production
 
 ```bash
 sudo docker-compose build --no-cache
 sudo docker-compose up -d
+```
+
+#### Development
+
+```bash
+sudo docker-compose build --no-cache
+sudo docker-compose -f develop.yml up
 ```
