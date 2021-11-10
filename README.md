@@ -25,13 +25,11 @@ WORKERS=4
 #### Production
 
 ```bash
-sudo docker-compose build --no-cache
 sudo docker-compose up -d
 ```
 
 #### Development
 
 ```bash
-sudo docker-compose build --no-cache
 sudo docker-compose -f develop.yml up
 ```

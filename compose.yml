@@ -2,20 +2,11 @@ version: "3.9"
 
 services:
   web:
-    image: odoo:14
-    build:
-      context: .
+    image: odoo:15
     depends_on:
       - db
-      - lb
+      - traefik
     command:
-      - --addons-path=/mnt/addons/oca/web,
-        /mnt/addons/oca/server-tools,
-        /mnt/addons/oca/server-brand,
-        /mnt/addons/oca/server-ux,
-        /mnt/addons/oca/project,
-        /mnt/addons/oca/partner-contact,
-        /mnt/addons/oca/reporting-engine
       - --unaccent
       - --workers=${WORKERS}
       - --proxy-mode
@@ -61,7 +52,7 @@ services:
       - db_data:/var/lib/postgresql/data/pgdata
     restart: unless-stopped
 
-  lb:
+  traefik:
     image: traefik:2.5
     command:
       - --providers.docker
@@ -90,6 +81,7 @@ services:
     image: adminer:4
     depends_on:
       - db
+      - traefik
     environment:
       ADMINER_DESIGN: nette
       ADMINER_PLUGINS: "tables-filter tinymce"
