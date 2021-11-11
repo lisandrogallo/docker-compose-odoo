@@ -7,6 +7,7 @@ services:
       context: .
     depends_on:
       - db
+      - traefik
     command:
       - --addons-path=/mnt/addons/oca/web,
         /mnt/addons/oca/server-tools,
@@ -19,8 +20,11 @@ services:
       - --update=all
     volumes:
       - ./addons:/mnt/extra-addons
-    ports:
-      - 8069:8069
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.odoo.rule=HostRegexp(`{subdomain:[a-z]+}.{subdomain:[a-z]+}.localhost`, `{subdomain:[a-z]+}.localhost`)
+      - traefik.http.routers.odoo.service=odoo
+      - traefik.http.services.odoo.loadbalancer.server.port=8069
     restart: unless-stopped
 
   db:
@@ -29,6 +33,17 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_USER: ${ODOO_USER}
       POSTGRES_PASSWORD: ${ODOO_PASS}
+    restart: unless-stopped
+
+  traefik:
+    image: traefik:2.5
+    command:
+      - --providers.docker
+      - --entrypoints.web.address=:80
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
 
   py3o:
@@ -41,9 +56,13 @@ services:
     image: adminer:4
     depends_on:
       - db
+      - traefik
     environment:
       ADMINER_DESIGN: nette
       ADMINER_PLUGINS: "tables-filter tinymce"
-    ports:
-      - 8080:8080
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.adminer.service=adminer
+      - traefik.http.routers.adminer.rule=Host(`localhost`) && (Path(`/adminer`))
+      - traefik.http.services.adminer.loadbalancer.server.port=8080
     restart: unless-stopped

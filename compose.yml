@@ -7,7 +7,7 @@ services:
       context: .
     depends_on:
       - db
-      - lb
+      - traefik
     command:
       - --addons-path=/mnt/addons/oca/web,
         /mnt/addons/oca/server-tools,
@@ -61,7 +61,7 @@ services:
       - db_data:/var/lib/postgresql/data/pgdata
     restart: unless-stopped
 
-  lb:
+  traefik:
     image: traefik:2.5
     command:
       - --providers.docker
@@ -90,6 +90,7 @@ services:
     image: adminer:4
     depends_on:
       - db
+      - traefik
     environment:
       ADMINER_DESIGN: nette
       ADMINER_PLUGINS: "tables-filter tinymce"
