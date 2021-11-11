@@ -40,12 +40,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
 
-  py3o:
-    image: xcgd/py3o:1.0.0
-    depends_on:
-      - web
-    restart: unless-stopped
-
   adminer:
     image: adminer:4
     depends_on:
