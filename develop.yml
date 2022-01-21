@@ -41,7 +41,7 @@ services:
     restart: unless-stopped
 
   adminer:
-    image: adminer:4
+    image: adminer:4.2.5-standalone
     depends_on:
       - db
       - traefik
